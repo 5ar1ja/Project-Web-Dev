@@ -9,3 +9,29 @@ dist/
 .vscode/
 .idea/
 .DS_Store
+
+# Локальные базы данных
+db.sqlite3
+
+# Конфиденциальные данные
+.env
+secrets.py
+
+# Python кэш-файлы
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Виртуальное окружение
+venv/
+env/
+.venv/
+
+# Медиа-файлы
+media/
+
+# Логи
+*.log
