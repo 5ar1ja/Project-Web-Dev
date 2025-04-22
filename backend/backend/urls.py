@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from api.views import movie_list, movie_detail, MovieCRUD, ReviewList, WatchlistView, RegisterView, LogoutView
+from api.views import movie_list, movie_detail, MovieCRUD, ReviewList, WatchlistView, RegisterView, LogoutView, GenreListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +34,5 @@ urlpatterns = [
     path('api/watchlist/<int:pk>/', WatchlistView.as_view(), name='watchlist_detail'),
     path('api/register/', RegisterView.as_view(), name='register'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
+    path('genres/', GenreListView.as_view(), name='genre-list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

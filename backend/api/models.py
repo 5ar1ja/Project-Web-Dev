@@ -2,16 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class MovieManager(models.Manager):
-    def by_genre(self, genre):
-        return self.filter(genre=genre)
+    def by_genre(self, genre_name):
+        return self.filter(genre__name=genre_name)
 
 class Movie(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     release_year = models.IntegerField()
-    genre = models.CharField(max_length=100)
+    genre = models.ForeignKey('Genre', on_delete=models.CASCADE, related_name='movies')
     poster = models.ImageField(upload_to='posters/', null=True, blank=True) 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='movies')
+
+    objects = MovieManager()
 
     def __str__(self):
         return self.title
@@ -32,6 +34,6 @@ class Watchlist(models.Model):
         return f"{self.user.username} - {self.movie.title}"
 
 class Genre(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     def __str__(self):
         return self.name

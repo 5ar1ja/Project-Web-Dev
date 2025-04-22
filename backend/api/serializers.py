@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, Review, Watchlist
+from .models import Movie, Review, Watchlist, Genre
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.Serializer):
@@ -19,12 +19,22 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ['id', 'name']
 
 class MovieSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)
+    genre = GenreSerializer(read_only=True)
+    genre_id = serializers.PrimaryKeyRelatedField(
+        queryset=Genre.objects.all(), source='genre', write_only=True, required=False
+    )
+
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'description', 'release_year', 'genre', 'created_by']
+        fields = ['id', 'title', 'description', 'release_year', 'genre', 'genre_id', 'created_by']
+
     def create(self, validated_data):
         validated_data['created_by'] = self.context['request'].user
         return super().create(validated_data)
@@ -49,6 +59,3 @@ class WatchlistSerializer(serializers.ModelSerializer):
         validated_data['user'] = self.context['request'].user
         return super().create(validated_data)
     
-class GenreSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=100)

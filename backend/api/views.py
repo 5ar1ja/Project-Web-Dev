@@ -1,22 +1,27 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
+from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
-from .models import Movie, Review, Watchlist
-from .serializers import MovieSerializer, ReviewSerializer, WatchlistSerializer, RegisterSerializer
+from .models import Movie, Review, Watchlist, Genre
+from .serializers import MovieSerializer, ReviewSerializer, WatchlistSerializer, RegisterSerializer, GenreSerializer
+from rest_framework.decorators import permission_classes
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def movie_list(request):
     genre = request.query_params.get('genre', None)
     if genre:
         movies = Movie.objects.by_genre(genre)
+        if not movies.exists() and not Genre.objects.filter(name=genre).exists():
+            return Response({"message": f"Genre '{genre}' does not exist."}, status=status.HTTP_404_NOT_FOUND)
     else:
         movies = Movie.objects.all()
     serializer = MovieSerializer(movies, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def movie_detail(request, pk):
@@ -123,3 +128,8 @@ class LogoutView(APIView):
             return Response({"message": "Logout successful"}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+class GenreListView(generics.ListAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    permission_classes = [AllowAny]
