@@ -1,0 +1,44 @@
+<div class="movie-detail" *ngIf="movie; else noMovie">
+  <h2>{{ movie.title }} ({{ movie.release_year }})</h2>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  <p>{{ movie.description }}</p>
+  <div *ngIf="movie.poster">
+    <img [src]="movie.poster" alt="{{ movie.title }}" class="movie-image" />
+  </div>
+  <div class="actions">
+    <button *ngIf="isLoggedIn" (click)="addToWatchlist()">Добавить в Watchlist</button>
+    <button *ngIf="isLoggedIn" (click)="editMovie()">Редактировать</button>
+    <button *ngIf="isLoggedIn" (click)="deleteMovie()" class="delete-button">Удалить</button>
+  </div>
+
+  <h3>Отзывы</h3>
+  <div *ngIf="reviews.length === 0">
+    <p>Отзывов пока нет.</p>
+  </div>
+  <div *ngFor="let review of reviews" class="review">
+    <p><strong>{{ review.user }}</strong> ({{ review.created_at | date:'medium' }}):</p>
+    <p>{{ review.text }}</p>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="add-review">
+    <h4>Добавить отзыв</h4>
+    <form (ngSubmit)="addReview()">
+      <textarea
+        [(ngModel)]="newReview"
+        name="newReview"
+        placeholder="Ваш отзыв..."
+        required
+      ></textarea>
+      <button type="submit">Отправить</button>
+    </form>
+  </div>
+</div>
+
+<ng-template #noMovie>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  <p *ngIf="!error">Фильм не найден.</p>
+</ng-template>

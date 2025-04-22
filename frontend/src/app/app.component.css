@@ -1,0 +1,35 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar a.active {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
+
+.error-message {
+  color: red;
+  padding: 10px;
+  background-color: #ffe6e6;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

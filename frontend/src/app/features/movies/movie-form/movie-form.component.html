@@ -1,0 +1,58 @@
+<div class="movie-form" *ngIf="isLoggedIn; else notLoggedIn">
+  <h2>{{ isEdit ? 'Редактировать фильм' : 'Добавить фильм' }}</h2>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  <form (ngSubmit)="saveMovie()">
+    <div class="form-group">
+      <label for="title">Название:</label>
+      <input
+        type="text"
+        id="title"
+        [(ngModel)]="movie.title"
+        name="title"
+        required
+        placeholder="Введите название фильма"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Описание:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="movie.description"
+        name="description"
+        required
+        placeholder="Введите описание фильма"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="release_year">Год выпуска:</label>
+      <input
+        type="number"
+        id="release_year"
+        [(ngModel)]="movie.release_year"
+        name="release_year"
+        required
+        placeholder="Введите год выпуска"
+      />
+    </div>
+    <div class="form-group">
+      <label for="image">Изображение:</label>
+      <input
+        type="file"
+        id="image"
+        (change)="onFileChange($event)"
+        name="image"
+        accept="image/*"
+      />
+    </div>
+    <button type="submit">{{ isEdit ? 'Сохранить изменения' : 'Добавить фильм' }}</button>
+    <a routerLink="/movies" class="cancel-button">Отмена</a>
+  </form>
+</div>
+
+<ng-template #notLoggedIn>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+</ng-template>

@@ -1,0 +1,32 @@
+<div class="login-container">
+  <h2>Вход</h2>
+  <form (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="username">Имя пользователя:</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="username"
+        name="username"
+        required
+        placeholder="Введите имя пользователя"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Пароль:</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+        placeholder="Введите пароль"
+      />
+    </div>
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+    <button type="submit">Войти</button>
+  </form>
+  <p>Нет аккаунта? <a routerLink="/register">Зарегистрируйтесь</a></p>
+</div>
