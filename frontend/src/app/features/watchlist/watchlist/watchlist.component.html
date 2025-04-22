@@ -1,16 +1,23 @@
 <div class="watchlist" *ngIf="isLoggedIn; else notLoggedIn">
   <h2>Мой Watchlist</h2>
+
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
+
   <div *ngIf="watchlist.length === 0 && !error">
-    <p>Ваш Watchlist пуст.</p>
+    <p class="empty-message">Ваш Watchlist пуст.</p>
   </div>
+
   <div *ngFor="let item of watchlist" class="watchlist-item">
-    <h3>
-      <a [routerLink]="['/movies', item.movie.id]">{{ item.movie.title }} ({{ item.movie.release_year }})</a>
-    </h3>
-    <button (click)="removeFromWatchlist(item.id)" class="remove-button">Удалить</button>
+    <div class="movie-info">
+      <a [routerLink]="['/movies', item.movie.id]">
+        {{ item.movie.title }} ({{ item.movie.release_year }})
+      </a>
+    </div>
+    <button (click)="removeFromWatchlist(item.id)" class="remove-button">
+      Удалить
+    </button>
   </div>
 </div>
 

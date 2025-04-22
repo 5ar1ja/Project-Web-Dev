@@ -1,24 +1,29 @@
 <div class="movie-detail" *ngIf="movie; else noMovie">
-  <h2>{{ movie.title }} ({{ movie.release_year }})</h2>
+  <h2>{{ movie.title }} <span class="year">({{ movie.release_year }})</span></h2>
+
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
-  <p>{{ movie.description }}</p>
-  <div *ngIf="movie.poster">
+
+  <p class="description">{{ movie.description }}</p>
+
+  <div *ngIf="movie.poster" class="poster-container">
     <img [src]="movie.poster" alt="{{ movie.title }}" class="movie-image" />
   </div>
-  <div class="actions">
-    <button *ngIf="isLoggedIn" (click)="addToWatchlist()">Добавить в Watchlist</button>
-    <button *ngIf="isLoggedIn" (click)="editMovie()">Редактировать</button>
-    <button *ngIf="isLoggedIn" (click)="deleteMovie()" class="delete-button">Удалить</button>
+
+  <div class="actions" *ngIf="isLoggedIn">
+    <button (click)="addToWatchlist()">Добавить в Watchlist</button>
+    <button (click)="editMovie()">Редактировать</button>
+    <button (click)="deleteMovie()" class="delete-button">Удалить</button>
   </div>
 
   <h3>Отзывы</h3>
-  <div *ngIf="reviews.length === 0">
+  <div *ngIf="reviews.length === 0" class="no-reviews">
     <p>Отзывов пока нет.</p>
   </div>
+
   <div *ngFor="let review of reviews" class="review">
-    <p><strong>{{ review.user }}</strong> ({{ review.created_at | date:'medium' }}):</p>
+    <p><strong>{{ review.user }}</strong> <span class="date">({{ review.created_at | date:'medium' }})</span>:</p>
     <p>{{ review.text }}</p>
   </div>
 

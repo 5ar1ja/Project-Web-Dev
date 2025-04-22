@@ -1,10 +1,9 @@
-<!-- src/app/features/movies/movie-list/movie-list.component.html -->
 <div class="movie-list">
   <h2>Список фильмов</h2>
 
   <div *ngIf="loading" class="loading-spinner">
     <div class="spinner"></div>
-    <p>Loading...</p>
+    <p>Загрузка...</p>
   </div>
 
   <div *ngIf="error && !loading" class="error-message">
@@ -13,10 +12,16 @@
 
   <div *ngIf="!loading && !error">
     <div *ngIf="movies.length === 0">
-      <p>No movies found.</p>
+      <p>Фильмы не найдены.</p>
     </div>
-    <div *ngFor="let movie of movies" class="movie-item">
-      <a [routerLink]="['/movies', movie.id]">{{ movie.title }} ({{ movie.release_year }})</a>
+
+    <div class="movies">
+      <div *ngFor="let movie of movies" class="movie-card">
+        <a [routerLink]="['/movies', movie.id]">
+          {{ movie.title }} ({{ movie.release_year }})
+        </a>
+        <p>{{ movie.description | slice:0:100 }}...</p>
+      </div>
     </div>
   </div>
 </div>

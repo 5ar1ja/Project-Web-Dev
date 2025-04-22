@@ -1,45 +1,70 @@
 .watchlist {
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  .error-message {
-    color: red;
-    padding: 10px;
-    background-color: #ffe6e6;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  .watchlist-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .watchlist-item a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .watchlist-item a:hover {
-    text-decoration: underline;
-  }
-  
-  .remove-button {
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .remove-button:hover {
-    background-color: #c82333;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #333;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.empty-message {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.watchlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  transition: box-shadow 0.2s ease;
+}
+
+.watchlist-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.movie-info a {
+  font-size: 18px;
+  font-weight: 500;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.movie-info a:hover {
+  text-decoration: underline;
+}
+
+.remove-button {
+  padding: 8px 14px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}

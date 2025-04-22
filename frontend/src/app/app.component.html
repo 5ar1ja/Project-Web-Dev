@@ -1,11 +1,13 @@
 <div class="app-container">
   <!-- Навигационное меню -->
-  <nav>
-    <a routerLink="/movies" routerLinkActive="active">Movies</a>
-    <a routerLink="/watchlist" routerLinkActive="active" *ngIf="isLoggedIn">Watchlist</a>
-    <a routerLink="/login" routerLinkActive="active" *ngIf="!isLoggedIn">Login</a>
-    <a routerLink="/register" routerLinkActive="active" *ngIf="!isLoggedIn">Register</a>
-    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+  <nav class="navbar">
+    <ul>
+      <li><a routerLink="/movies" routerLinkActive="active">Movies</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/watchlist" routerLinkActive="active">Watchlist</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/register" routerLinkActive="active">Register</a></li>
+      <li *ngIf="isLoggedIn"><button (click)="logout()" class="logout-button">Logout</button></li>
+    </ul>
   </nav>
 
   <!-- Отображение ошибок -->
@@ -14,5 +16,7 @@
   </div>
 
   <!-- Основной контент -->
-  <router-outlet></router-outlet>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 </div>
