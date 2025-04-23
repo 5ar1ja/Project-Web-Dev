@@ -36,7 +36,7 @@ class MovieCRUD(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = MovieSerializer(data=request.data)
+        serializer = MovieSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save(created_by=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -74,7 +74,7 @@ class ReviewList(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = ReviewSerializer(data=request.data)
+        serializer = ReviewSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
